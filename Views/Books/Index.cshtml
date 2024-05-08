@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Asp_Labb4.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container d-flex align-items-center ps-0 my-5">
+    <h1>Books</h1>
+    <a asp-action="Create" class="btn btn-primary btn-sm ms-3">
+        <i class="bi bi-plus-circle"></i>
+        Add
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorFName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorLName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="vertical-align:middle">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorFName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorLName)
+            </td>
+            <td>
+                    @if (item.IsAvailable)
+                    {
+                        <i class="bi bi-check text-success" style="font-size: 2rem;"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-x text-danger fw-bolder" style="font-size: 2rem;"></i>
+                    }
+
+            </td>
+            <td>
+                <a asp-controller="BorrowedBooks" asp-action="Borrow" asp-route-id="@item.BookId" class="btn btn-success">Borrow</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

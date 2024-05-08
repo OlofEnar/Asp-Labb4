@@ -1,0 +1,42 @@
+﻿@model Asp_Labb4.Models.BorrowedBook
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>BorrowedBook</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BorrowDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BorrowDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Book)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Book.AuthorFName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.BorrowedBookId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

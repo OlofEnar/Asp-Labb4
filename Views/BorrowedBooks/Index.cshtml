@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Asp_Labb4.Models.BorrowedBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container d-flex align-items-center ps-0 my-5">
+    <h1>Borrowed books</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.AuthorFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>Lender</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="vertical-align:middle">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.AuthorFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FirstName)
+            </td>
+            <td>
+                <a href="#" onclick="openModal(@item.BorrowedBookId, '@item.Book.Title')" class="btn btn-warning">Return</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- Modal for returning books -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Return Book</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to return <span class="fw-bold" id="bookTitle"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="returnBook()">Yes, return</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden form to send to controller-->
+<form id="returnForm" method="post" action="@Url.Action("Delete", "BorrowedBooks")">
+    <input type="hidden" id="borrowedBookId" name="id" />
+    @Html.AntiForgeryToken()
+</form>
+
+<!-- Script for the modal-->
+<script>
+    function openModal(borrowedBookId, title) {
+        document.getElementById("borrowedBookId").value = borrowedBookId;
+        document.getElementById("bookTitle").innerText = title;
+        var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+        myModal.show();
+    }
+
+    function returnBook() {
+        // Submit the hidden form
+        document.getElementById("returnForm").submit();
+    }
+</script>

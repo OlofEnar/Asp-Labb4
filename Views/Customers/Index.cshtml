@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Asp_Labb4.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container d-flex align-items-center ps-0 my-5">
+    <h1>Customers</h1>
+    <a asp-action="Create" class="btn btn-primary btn-sm ms-3">
+        <i class="bi bi-plus-circle"></i>
+        Add
+    </a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
